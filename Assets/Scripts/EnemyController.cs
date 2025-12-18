@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour
@@ -13,9 +12,11 @@ public class EnemyController : MonoBehaviour
     private HealthScript _currentOpponent;
     private int _positionIndex;
     private bool _isAttacking;
+    private Animator _animator;
     
     private void Awake()
     {
+        _animator = GetComponentInChildren<Animator>();
         _isAttacking = false;
     }
 
@@ -26,6 +27,8 @@ public class EnemyController : MonoBehaviour
 
     private void Update()
     {
+
+        
         float distance = Vector3.Distance(_nextPosition.transform.position, transform.position);
 
         if (distance <= _threshhold)
@@ -62,6 +65,7 @@ public class EnemyController : MonoBehaviour
         Vector3 direction = _nextPosition.transform.position - transform.position;
         float angle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0,angle,0);
+        _animator.Play("Walk");
     }
 
     private void Move()
@@ -78,10 +82,12 @@ public class EnemyController : MonoBehaviour
     {
         while (_currentOpponent._currentHealth > 0)
         {
+            _animator.Play("Attack");
             Debug.Log(_currentOpponent._currentHealth);
             yield return new WaitForSeconds(1f);
             _currentOpponent._currentHealth -= _damage;
         }
+        _animator.Play("Walk");
         Debug.Log(_currentOpponent._currentHealth);
         _isAttacking = false;
         
