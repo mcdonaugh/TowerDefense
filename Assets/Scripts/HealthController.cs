@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class HealthScript : MonoBehaviour
+public class HealthController : MonoBehaviour
 {
     [SerializeField] private int _maxHealth;
     public int _currentHealth;

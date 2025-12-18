@@ -5,13 +5,15 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     [SerializeField] private float _moveSpeed = 1f;
+    [SerializeField] private float _turnSpeed = 4f;
     [SerializeField] private float _threshhold = .1f;
     [SerializeField] private List<PathAnchor> _pathAnchors = new List<PathAnchor>();
     [SerializeField] private int _damage;
     private PathAnchor _nextPosition;
-    private HealthScript _currentOpponent;
+    private HealthController _currentOpponent;
     private int _positionIndex;
     private bool _isAttacking;
+    private bool _isCrossing;
     private Animator _animator;
     
     private void Awake()
@@ -36,8 +38,12 @@ public class EnemyController : MonoBehaviour
             if (_positionIndex < _pathAnchors.Count)
             {
                 _nextPosition = _pathAnchors[_positionIndex++];
-                LookAt();
             }
+        }
+
+        if (_nextPosition != null)
+        {
+            LookAt();
         }
 
         Move();
@@ -47,14 +53,19 @@ public class EnemyController : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other != null)
+        if (other.GetComponent<HealthController>() == true)
         {
-            _currentOpponent = other.GetComponent<HealthScript>();
+            _currentOpponent = other.GetComponent<HealthController>();
             _isAttacking = true;
             StartCoroutine(Attack());
         }
+        else if (other.GetComponent<BridgeController>())
+        {
+            _isCrossing = true;
+        }
         else
         {
+            _isCrossing = false;
             _isAttacking = false;
         }
     }
@@ -64,7 +75,10 @@ public class EnemyController : MonoBehaviour
     {
         Vector3 direction = _nextPosition.transform.position - transform.position;
         float angle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0,angle,0);
+        Quaternion targetRotation = Quaternion.Euler(0,angle,0);
+
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, _turnSpeed * Time.deltaTime);
+        
         _animator.Play("Walk");
     }
 
@@ -83,15 +97,16 @@ public class EnemyController : MonoBehaviour
         while (_currentOpponent._currentHealth > 0)
         {
             _animator.Play("Attack");
-            Debug.Log(_currentOpponent._currentHealth);
+            // Debug.Log(_currentOpponent._currentHealth);
             yield return new WaitForSeconds(1f);
             _currentOpponent._currentHealth -= _damage;
         }
         _animator.Play("Walk");
-        Debug.Log(_currentOpponent._currentHealth);
+        // Debug.Log(_currentOpponent._currentHealth);
         _isAttacking = false;
         
     }
+    
 
     private void DrawLines()
     {
