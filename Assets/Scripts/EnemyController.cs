@@ -1,4 +1,6 @@
+using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour
@@ -6,9 +8,16 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float _moveSpeed = 1f;
     [SerializeField] private float _threshhold = .1f;
     [SerializeField] private List<PathAnchor> _pathAnchors = new List<PathAnchor>();
+    [SerializeField] private int _damage;
     private PathAnchor _nextPosition;
+    private HealthScript _currentOpponent;
     private int _positionIndex;
-
+    private bool _isAttacking;
+    
+    private void Awake()
+    {
+        _isAttacking = false;
+    }
 
     private void Start()
     {
@@ -24,18 +33,29 @@ public class EnemyController : MonoBehaviour
             if (_positionIndex < _pathAnchors.Count)
             {
                 _nextPosition = _pathAnchors[_positionIndex++];
-            }
-            else
-            {
-                _positionIndex = 0;
+                LookAt();
             }
         }
 
-        LookAt();
         Move();
         DrawLines();
-        
+
     }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other != null)
+        {
+            _currentOpponent = other.GetComponent<HealthScript>();
+            _isAttacking = true;
+            StartCoroutine(Attack());
+        }
+        else
+        {
+            _isAttacking = false;
+        }
+    }
+
 
     private void LookAt()
     {
@@ -47,7 +67,24 @@ public class EnemyController : MonoBehaviour
     private void Move()
     {
         Vector3 direction = _nextPosition.transform.position - transform.position;
-        transform.position += direction.normalized * _moveSpeed * Time.deltaTime;
+
+        if (!_isAttacking && _positionIndex < _pathAnchors.Count + 1)
+        {
+            transform.position += direction.normalized * _moveSpeed * Time.deltaTime;
+        }
+    }
+
+    private IEnumerator Attack()
+    {
+        while (_currentOpponent._currentHealth > 0)
+        {
+            Debug.Log(_currentOpponent._currentHealth);
+            yield return new WaitForSeconds(1f);
+            _currentOpponent._currentHealth -= _damage;
+        }
+        Debug.Log(_currentOpponent._currentHealth);
+        _isAttacking = false;
+        
     }
 
     private void DrawLines()
@@ -65,8 +102,6 @@ public class EnemyController : MonoBehaviour
         {
             Gizmos.DrawLine(_pathAnchors[i].transform.position, _pathAnchors[i+1].transform.position);
         }
-        Gizmos.DrawLine(_pathAnchors[_pathAnchors.Count - 1].transform.position, _pathAnchors[0].transform.position);
-        Debug.Log($"Path Anchors:{_pathAnchors.Count}, Index: {_positionIndex}");
 
     }
 }
