@@ -4,26 +4,53 @@ using UnityEngine;
 
 public class MageTowerController : MonoBehaviour
 {
-    [SerializeField] private float _shootSpeed = 1;
+    [SerializeField] private float _shootSpeed = 1f;
+    [SerializeField] private float _buildTime = 5f;
     [SerializeField] private ProjectileController _projectileController;
     [SerializeField] private GameObject _model;
+    [SerializeField] private GameObject _crystal;
+    private MeshFilter _meshFilter;
+    [SerializeField] Mesh _buildingMesh;
+    [SerializeField] Mesh _builtMesh;
+    [SerializeField] Mesh _destroyedMesh;
     private List<HealthController> _targetQueue = new List<HealthController>();
     private bool _hasShot;
+    private bool _isBuilt;
 
+    private void Awake()
+    {
+        _meshFilter = _model.GetComponent<MeshFilter>();
+        _meshFilter.mesh = _buildingMesh;
+    }
+    private void Start()
+    {
+        _isBuilt = false;
 
+        if(!_isBuilt)
+        {
+            StartCoroutine(Build());
+        }
+    }
     private void Update()
     {
-        if(!_hasShot)
+        if(_isBuilt && !_hasShot)
         {
             Shoot();
         }
 
         if (_model.activeInHierarchy == false)
         {
-            gameObject.SetActive(false);
+            _isBuilt = false;
+            StartCoroutine(DestroyTower());
         }
     }
-    
+
+    private IEnumerator Build()
+    {
+        yield return new WaitForSeconds(_buildTime);
+        _meshFilter.mesh = _builtMesh;
+        _isBuilt = true; 
+    }
     private void OnTriggerEnter(Collider other)
     {
         HealthController enemy = other.GetComponent<HealthController>();
@@ -50,10 +77,20 @@ public class MageTowerController : MonoBehaviour
     private IEnumerator GenerateProjectile(HealthController target)
     {
         ProjectileController projectile = Instantiate(_projectileController);
+        projectile.transform.position = _crystal.transform.position;
         projectile.Move(target);
         yield return new WaitForSeconds(_shootSpeed);
         _hasShot = false;
     }
+
+    private IEnumerator DestroyTower()
+    {
+        _model.SetActive(true);
+        _meshFilter.mesh = _destroyedMesh;
+        yield return new WaitForSeconds(2f);
+        gameObject.SetActive(false);
+    }
+
     
 
 }

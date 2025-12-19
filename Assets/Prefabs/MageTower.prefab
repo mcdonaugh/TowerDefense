@@ -47,8 +47,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _shootSpeed: 0.5
+  _buildTime: 5
   _projectileController: {fileID: 5284925294531154582, guid: 2120e7f24b35c43febf5a1c26dc6fe36, type: 3}
   _model: {fileID: 8842956341216119671}
+  _crystal: {fileID: 8843111556428360007}
+  _buildingMesh: {fileID: 4300000, guid: cc94f9856b628754783652821acd1821, type: 3}
+  _builtMesh: {fileID: 4300000, guid: 2efb54d094d718741936869262b2ab69, type: 3}
+  _destroyedMesh: {fileID: -8335688147123343865, guid: e5981f98d261d3946b1368225a6c8f80, type: 3}
 --- !u!135 &2405715806779634237
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -177,3 +182,8 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 10, y: 4.842702, z: 10}
   m_Center: {x: 0.00000023841858, y: 2.735792, z: -0.00000023841858}
+--- !u!1 &8843111556428360007 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1595137788046860, guid: be0b768028397264d9c378dbd4f93277, type: 3}
+  m_PrefabInstance: {fileID: 8844121749062223691}
+  m_PrefabAsset: {fileID: 0}
