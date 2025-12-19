@@ -36,7 +36,6 @@ public class EnemyController : MonoBehaviour
         }
 
         _animator = GetComponentInChildren<Animator>();
-        _isAttacking = false;
         _positionIndex = 0;
         _nextPosition = _pathAnchors[_positionIndex];
     }
@@ -52,9 +51,7 @@ public class EnemyController : MonoBehaviour
         }
 
         Move();
-        LookAt();
-
-        
+        LookAt();        
         DrawLines();
 
     }
@@ -66,10 +63,6 @@ public class EnemyController : MonoBehaviour
             _currentOpponent = other.GetComponent<HealthController>();
             _isAttacking = true;
             StartCoroutine(Attack());
-        }
-        else
-        {
-            _isAttacking = false;
         }
     }
 
@@ -97,13 +90,13 @@ public class EnemyController : MonoBehaviour
     {
         while (_currentOpponent.gameObject.activeInHierarchy)
         {
+            _isAttacking = true;
             _animator.Play("Attack");
-            yield return new WaitForSeconds(1f);
             _currentOpponent.TakeDamage(_damage);
+            yield return new WaitForSeconds(1f);
         }
 
         _isAttacking = false;
-        
     }
     
 
