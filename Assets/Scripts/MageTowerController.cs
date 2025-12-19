@@ -14,6 +14,7 @@ public class MageTowerController : MonoBehaviour
     [SerializeField] Mesh _builtMesh;
     [SerializeField] Mesh _destroyedMesh;
     private List<HealthController> _targetQueue = new List<HealthController>();
+    
     private bool _hasShot;
     private bool _isBuilt;
 
@@ -41,7 +42,7 @@ public class MageTowerController : MonoBehaviour
         if (_model.activeInHierarchy == false)
         {
             _isBuilt = false;
-            StartCoroutine(DestroyTower());
+            DestroyTower();
         }
     }
 
@@ -83,11 +84,8 @@ public class MageTowerController : MonoBehaviour
         _hasShot = false;
     }
 
-    private IEnumerator DestroyTower()
+    private void DestroyTower()
     {
-        _model.SetActive(true);
-        _meshFilter.mesh = _destroyedMesh;
-        yield return new WaitForSeconds(2f);
         gameObject.SetActive(false);
     }
 

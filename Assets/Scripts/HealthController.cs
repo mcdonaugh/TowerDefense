@@ -12,11 +12,9 @@ public class HealthController : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        if (_currentHealth > 0)
-        {
-            _currentHealth -= damage;
-        }
-        else
+        _currentHealth -= damage;
+
+        if (_currentHealth <= 0)
         {
             Die();
         }

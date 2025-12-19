@@ -19,6 +19,7 @@ public class EnemyController : MonoBehaviour
 
     private void Awake()
     {
+        gameObject.SetActive(false);
         _animator = GetComponentInChildren<Animator>();
         _positionIndex = 0;
 

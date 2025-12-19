@@ -9,7 +9,7 @@ public class EnemySpawnerController : MonoBehaviour
     [SerializeField] private float _spawnTime;
     [SerializeField] private int _maxSpawn = 3;
     private EnemyController[] _enemies;
-    private int _maxEnemies = 1;
+    private int _maxEnemies = 20;
     private bool _hasSpawned;
 
     private void Awake()
@@ -48,7 +48,6 @@ public class EnemySpawnerController : MonoBehaviour
             if(!_enemies[j].gameObject.activeInHierarchy)
             {
                 EnemyController enemy = _enemies[j];
-                enemy.LineManager = _lineManager;
                 enemy.transform.position = _lineManager.BotLane[0].transform.position;
                 enemy.gameObject.SetActive(true);
                 break;
@@ -62,7 +61,7 @@ public class EnemySpawnerController : MonoBehaviour
         for(int i = 0; i < _maxEnemies; i++)
         {
             _enemies[i] = Instantiate(_enemy);
-            _enemies[i].gameObject.SetActive(false);
+            _enemies[i].LineManager = _lineManager;
         }
     }
 
