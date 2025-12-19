@@ -17,8 +17,9 @@ public class ProjectileController : MonoBehaviour
         {
             HealthController target = other.GetComponent<HealthController>();
             target.TakeDamage(_damage);
-            gameObject.SetActive(false);
         }
+
+        Destruct();
     }
 
     public void Move(HealthController target)
@@ -27,4 +28,9 @@ public class ProjectileController : MonoBehaviour
         Vector3 direction = _target.transform.position - transform.position; 
         transform.position += direction * _moveSpeed * Time.deltaTime;
     }  
+
+    private void Destruct()
+    {
+        gameObject.SetActive(false);
+    }
 }

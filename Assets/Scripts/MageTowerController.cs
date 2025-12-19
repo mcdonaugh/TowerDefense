@@ -5,7 +5,7 @@ using UnityEngine;
 public class MageTowerController : MonoBehaviour
 {
     [SerializeField] private float _shootSpeed = 1f;
-    [SerializeField] private float _buildTime = 5f;
+    [SerializeField] private float _buildTime = 0f;
     [SerializeField] private ProjectileController _projectileController;
     [SerializeField] private GameObject _model;
     [SerializeField] private GameObject _crystal;

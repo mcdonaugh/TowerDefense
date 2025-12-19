@@ -24,7 +24,7 @@ public class HealthController : MonoBehaviour
 
     private void Die()
     {
-        _currentHealth = 0;
         gameObject.SetActive(false);
+        _currentHealth = _maxHealth;
     }
 }

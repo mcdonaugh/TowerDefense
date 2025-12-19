@@ -17,6 +17,12 @@ public class EnemyController : MonoBehaviour
     private bool _isAttacking;
     private Animator _animator;
 
+    private void Awake()
+    {
+        _animator = GetComponentInChildren<Animator>();
+        _positionIndex = 0;
+
+    }
     void OnEnable()
     {
         _laneToGoto = Random.Range(0,3);
@@ -33,10 +39,13 @@ public class EnemyController : MonoBehaviour
         {
             _pathAnchors = LineManager.BotLane;
         }
-
-        _animator = GetComponentInChildren<Animator>();
-        _positionIndex = 0;
         _nextPosition = _pathAnchors[_positionIndex];
+    }
+
+    void OnDisable()
+    {
+        _isAttacking = false;
+        _positionIndex = 0;
     }
 
     private void Update()
@@ -44,9 +53,9 @@ public class EnemyController : MonoBehaviour
    
         float distance = Vector3.Distance(_nextPosition.transform.position, transform.position);
 
-        if (distance <= _threshhold && _positionIndex < _pathAnchors.Count)
+        if (distance <= _threshhold && _positionIndex < _pathAnchors.Count - 1)
         {   
-            _nextPosition = _pathAnchors[_positionIndex++];
+            _nextPosition = _pathAnchors[++_positionIndex];
         }
 
         Move();
@@ -115,10 +124,5 @@ public class EnemyController : MonoBehaviour
             Gizmos.DrawLine(_pathAnchors[i].transform.position, _pathAnchors[i+1].transform.position);
         }
 
-    }
-
-    private void Reset()
-    {
-        
     }
 }
