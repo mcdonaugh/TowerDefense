@@ -5,6 +5,8 @@ using UnityEngine;
 public class MageTowerController : MonoBehaviour
 {
     [SerializeField] private int _damage = 2;
+    [SerializeField] private ProjectileController _projectileController;
+    
     private List<HealthController> _targetQueue = new List<HealthController>();
 
     private void OnTriggerEnter(Collider other)
@@ -24,10 +26,16 @@ public class MageTowerController : MonoBehaviour
     {
         while (_targetQueue[0] != null && _targetQueue[0].gameObject.activeInHierarchy)
         {   
-            _targetQueue[0].TakeDamage(_damage);
+            GenerateProjectile(_targetQueue[0]);
             _targetQueue.RemoveAll(item => item == null || !item.gameObject.activeInHierarchy);
             yield return new WaitForSeconds(2f);
         }
+    }
+
+    private void GenerateProjectile(HealthController target)
+    {
+        ProjectileController projectile = Instantiate(_projectileController);
+        projectile.Move(target);
     }
     
 
