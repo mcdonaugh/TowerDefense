@@ -46,8 +46,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e98be99c2bc63406ab0f501ef7be9551, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 2
+  _shootSpeed: 0.5
   _projectileController: {fileID: 5284925294531154582, guid: 2120e7f24b35c43febf5a1c26dc6fe36, type: 3}
+  _model: {fileID: 8842956341216119671}
 --- !u!135 &2405715806779634237
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -174,5 +175,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 10, y: 10, z: 10}
+  m_Size: {x: 10, y: 4.842702, z: 10}
   m_Center: {x: 0.00000023841858, y: 2.735792, z: -0.00000023841858}

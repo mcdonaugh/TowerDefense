@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class MageTowerController : MonoBehaviour
 {
-    [SerializeField] private int _damage = 2;
+    [SerializeField] private float _shootSpeed = 1;
     [SerializeField] private ProjectileController _projectileController;
+    [SerializeField] private GameObject _model;
     private List<HealthController> _targetQueue = new List<HealthController>();
     private bool _hasShot;
+
 
     private void Update()
     {
@@ -15,7 +17,13 @@ public class MageTowerController : MonoBehaviour
         {
             Shoot();
         }
+
+        if (_model.activeInHierarchy == false)
+        {
+            gameObject.SetActive(false);
+        }
     }
+    
     private void OnTriggerEnter(Collider other)
     {
         HealthController enemy = other.GetComponent<HealthController>();
@@ -36,7 +44,6 @@ public class MageTowerController : MonoBehaviour
         {   
             _hasShot = true;
             StartCoroutine(GenerateProjectile(_targetQueue[0]));
-
         }
     }
 
@@ -44,7 +51,7 @@ public class MageTowerController : MonoBehaviour
     {
         ProjectileController projectile = Instantiate(_projectileController);
         projectile.Move(target);
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(_shootSpeed);
         _hasShot = false;
     }
     
