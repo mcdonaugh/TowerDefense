@@ -3,7 +3,7 @@ using UnityEngine;
 public class ProjectileController : MonoBehaviour
 {
     [SerializeField] private int _damage = 2;
-    public HealthController _target{get; set;}
+    public EnemyController _target{get; set;}
     private float _moveSpeed = 20f;
 
     private void Update()
@@ -13,16 +13,16 @@ public class ProjectileController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.GetComponent<HealthController>() != null)
+        if(other.GetComponent<EnemyController>() != null)
         {
-            HealthController target = other.GetComponent<HealthController>();
+            EnemyController target = other.GetComponent<EnemyController>();
             target.TakeDamage(_damage);
         }
 
         Destruct();
     }
 
-    public void Move(HealthController target)
+    public void Move(EnemyController target)
     {
         _target = target;
         Vector3 direction = _target.transform.position - transform.position; 

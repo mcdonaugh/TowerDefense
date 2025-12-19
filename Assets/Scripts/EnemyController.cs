@@ -8,6 +8,8 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float _turnSpeed = 4f;
     [SerializeField] private float _threshhold = .1f;
     [SerializeField] private int _damage;
+    [SerializeField] private int _maxHealth;
+    private int _currentHealth;
     public LineManager LineManager{get; set;}
     private int _laneToGoto;
     private List<PathAnchor> _pathAnchors = new List<PathAnchor>();
@@ -19,6 +21,7 @@ public class EnemyController : MonoBehaviour
 
     private void Awake()
     {
+        _currentHealth = _maxHealth;
         gameObject.SetActive(false);
         _animator = GetComponentInChildren<Animator>();
         _positionIndex = 0;
@@ -73,6 +76,21 @@ public class EnemyController : MonoBehaviour
             _isAttacking = true;
             StartCoroutine(Attack());
         }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        _currentHealth -= damage;
+
+        if (_currentHealth <= 0)
+        {
+            Die();
+        }
+    }
+    private void Die()
+    {
+        gameObject.SetActive(false);
+        _currentHealth = _maxHealth;
     }
 
     private void LookAt()

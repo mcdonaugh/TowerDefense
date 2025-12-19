@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8191766172726428264}
   - component: {fileID: 3054925214246159186}
-  - component: {fileID: 5318391794027505229}
   - component: {fileID: 7101684024634945386}
   - component: {fileID: 7729578421959471670}
   m_Layer: 0
@@ -52,18 +51,6 @@ MonoBehaviour:
   _turnSpeed: 4
   _threshhold: 0.1
   _damage: 2
---- !u!114 &5318391794027505229
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8003136939958086469}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e388fd3e99cd4420f838ef054901dd70, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
   _maxHealth: 10
 --- !u!54 &7101684024634945386
 Rigidbody:

@@ -13,7 +13,7 @@ public class MageTowerController : MonoBehaviour
     [SerializeField] Mesh _buildingMesh;
     [SerializeField] Mesh _builtMesh;
     [SerializeField] Mesh _destroyedMesh;
-    private List<HealthController> _targetQueue = new List<HealthController>();
+    private List<EnemyController> _targetQueue = new List<EnemyController>();
     
     private bool _hasShot;
     private bool _isBuilt;
@@ -54,19 +54,19 @@ public class MageTowerController : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        HealthController enemy = other.GetComponent<HealthController>();
+        EnemyController enemy = other.GetComponent<EnemyController>();
         _targetQueue.Add(enemy);
     }
 
     private void OnTriggerExit(Collider other)
     {
-        HealthController enemy = other.GetComponent<HealthController>();
+        EnemyController enemy = other.GetComponent<EnemyController>();
         _targetQueue.Remove(enemy);
     }
 
     private void Shoot()
     {
-        _targetQueue.RemoveAll(HealthController => HealthController == null || !HealthController.gameObject.activeInHierarchy);
+        _targetQueue.RemoveAll(EnemyController => EnemyController == null || !EnemyController.gameObject.activeInHierarchy);
         
         if (_targetQueue.Count > 0)
         {   
@@ -75,7 +75,7 @@ public class MageTowerController : MonoBehaviour
         }
     }
 
-    private IEnumerator GenerateProjectile(HealthController target)
+    private IEnumerator GenerateProjectile(EnemyController target)
     {
         ProjectileController projectile = Instantiate(_projectileController);
         projectile.transform.position = _crystal.transform.position;
