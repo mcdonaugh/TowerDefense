@@ -7,46 +7,54 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float _moveSpeed = 1f;
     [SerializeField] private float _turnSpeed = 4f;
     [SerializeField] private float _threshhold = .1f;
-    [SerializeField] private List<PathAnchor> _pathAnchors = new List<PathAnchor>();
     [SerializeField] private int _damage;
+    public LineManager LineManager{get; set;}
+    private int _laneToGoto;
+    private List<PathAnchor> _pathAnchors = new List<PathAnchor>();
     private PathAnchor _nextPosition;
     private HealthController _currentOpponent;
     private int _positionIndex;
     private bool _isAttacking;
-    private bool _isCrossing;
     private Animator _animator;
     
-    private void Awake()
-    {
-        _animator = GetComponentInChildren<Animator>();
-        _isAttacking = false;
-    }
 
     private void Start()
     {
-        _nextPosition = _pathAnchors[0];
+        _laneToGoto = Random.Range(0,3);
+
+        if (_laneToGoto == 0)
+        {
+            _pathAnchors = LineManager.TopLane;
+        }
+        else if (_laneToGoto == 1)
+        {
+            _pathAnchors = LineManager.MidLane;
+        }
+        else
+        {
+            _pathAnchors = LineManager.BotLane;
+        }
+
+        _animator = GetComponentInChildren<Animator>();
+        _isAttacking = false;
+        _positionIndex = 0;
+        _nextPosition = _pathAnchors[_positionIndex];
     }
 
     private void Update()
     {
-
-        
+   
         float distance = Vector3.Distance(_nextPosition.transform.position, transform.position);
 
-        if (distance <= _threshhold)
+        if (distance <= _threshhold && _positionIndex < _pathAnchors.Count)
         {   
-            if (_positionIndex < _pathAnchors.Count)
-            {
-                _nextPosition = _pathAnchors[_positionIndex++];
-            }
-        }
-
-        if (_nextPosition != null)
-        {
-            LookAt();
+            _nextPosition = _pathAnchors[_positionIndex++];
         }
 
         Move();
+        LookAt();
+
+        
         DrawLines();
 
     }
@@ -59,50 +67,41 @@ public class EnemyController : MonoBehaviour
             _isAttacking = true;
             StartCoroutine(Attack());
         }
-        else if (other.GetComponent<BridgeController>())
-        {
-            _isCrossing = true;
-        }
         else
         {
-            _isCrossing = false;
             _isAttacking = false;
         }
     }
-
 
     private void LookAt()
     {
         Vector3 direction = _nextPosition.transform.position - transform.position;
         float angle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
         Quaternion targetRotation = Quaternion.Euler(0,angle,0);
-
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, _turnSpeed * Time.deltaTime);
-        
-        _animator.Play("Walk");
     }
 
     private void Move()
     {
         Vector3 direction = _nextPosition.transform.position - transform.position;
 
-        if (!_isAttacking && _positionIndex < _pathAnchors.Count + 1)
+        if (!_isAttacking)
         {
             transform.position += direction.normalized * _moveSpeed * Time.deltaTime;
+            _animator.Play("Walk");
         }
+
     }
 
     private IEnumerator Attack()
     {
-        while (_currentOpponent._currentHealth > 0)
+        while (_currentOpponent.gameObject.activeInHierarchy)
         {
             _animator.Play("Attack");
-            // Debug.Log(_currentOpponent._currentHealth);
             yield return new WaitForSeconds(1f);
-            _currentOpponent._currentHealth -= _damage;
+            _currentOpponent.TakeDamage(_damage);
         }
-        _animator.Play("Walk");
-        // Debug.Log(_currentOpponent._currentHealth);
+
         _isAttacking = false;
         
     }
