@@ -2,36 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MageTowerController : MonoBehaviour
+public class MageTowerController : BaseTower
 {
     [SerializeField] private float _shootSpeed = 1f;
-    [SerializeField] private float _buildTime = 0f;
     [SerializeField] private ProjectileController _projectileController;
     [SerializeField] private GameObject _model;
     [SerializeField] private GameObject _crystal;
-    private MeshFilter _meshFilter;
-    [SerializeField] Mesh _buildingMesh;
-    [SerializeField] Mesh _builtMesh;
-    [SerializeField] Mesh _destroyedMesh;
     private List<EnemyController> _targetQueue = new List<EnemyController>();
-    
     private bool _hasShot;
     private bool _isBuilt;
 
-    private void Awake()
+    public override void OnTowerPlaced()
     {
-        _meshFilter = _model.GetComponent<MeshFilter>();
-        _meshFilter.mesh = _buildingMesh;
+        base.OnTowerPlaced();
     }
-    private void Start()
-    {
-        _isBuilt = false;
-
-        if(!_isBuilt)
-        {
-            StartCoroutine(Build());
-        }
-    }
+    
     private void Update()
     {
         if(_isBuilt && !_hasShot)
@@ -41,17 +26,10 @@ public class MageTowerController : MonoBehaviour
 
         if (_model.activeInHierarchy == false)
         {
-            _isBuilt = false;
             DestroyTower();
         }
     }
 
-    private IEnumerator Build()
-    {
-        yield return new WaitForSeconds(_buildTime);
-        _meshFilter.mesh = _builtMesh;
-        _isBuilt = true; 
-    }
     private void OnTriggerEnter(Collider other)
     {
         EnemyController enemy = other.GetComponent<EnemyController>();
