@@ -22,8 +22,6 @@ public abstract class BaseTower : MonoBehaviour
 
     public virtual void OnTowerPlaced()
     {
-        Debug.Log($"{name} is placed");
-
         _detectionCollider = gameObject.AddComponent<SphereCollider>();
         _detectionCollider.radius = _colliderRadius;
         _detectionCollider.isTrigger = true;

@@ -76,7 +76,6 @@ public class BuildingGenerator : MonoBehaviour
             
             _originalMaterial = _currentTower?.GetComponent<MeshRenderer>().material;
             _childMeshRenderers = _currentTower?.GetComponentsInChildren<MeshRenderer>().ToList();
-            Debug.Log($"{_currentIndex}, {index}");
             
             if (_childMeshRenderers.Count > 0)
             {
