@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3054925214246159186}
   - component: {fileID: 7101684024634945386}
   - component: {fileID: 7729578421959471670}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,10 +89,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -113,6 +113,22 @@ PrefabInstance:
     - target: {fileID: 1309137368763118, guid: fb427e5466964734499238cdd3fccc99, type: 3}
       propertyPath: m_Name
       value: TB_Soldier_Swordman_Blue
+      objectReference: {fileID: 0}
+    - target: {fileID: 1309137368763118, guid: fb427e5466964734499238cdd3fccc99, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1411845915340942, guid: fb427e5466964734499238cdd3fccc99, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1579903398261312, guid: fb427e5466964734499238cdd3fccc99, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1719804680465548, guid: fb427e5466964734499238cdd3fccc99, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4937637366311374, guid: fb427e5466964734499238cdd3fccc99, type: 3}
       propertyPath: m_LocalScale.x

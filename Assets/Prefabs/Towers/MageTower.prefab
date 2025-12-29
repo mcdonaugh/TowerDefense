@@ -1,58 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &640879681155692018
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8725474074371781142}
-  - component: {fileID: 4999227031583398980}
-  m_Layer: 0
-  m_Name: DetectionCollider
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8725474074371781142
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 640879681155692018}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 60.23961, y: 3.091958, z: -0.45824623}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4031093977621136033}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &4999227031583398980
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 640879681155692018}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 128
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2329901631346096502
 GameObject:
   m_ObjectHideFlags: 0
@@ -65,7 +12,6 @@ GameObject:
   - component: {fileID: 973279043570963655}
   - component: {fileID: 6500835763903122498}
   - component: {fileID: 7660266771500232150}
-  - component: {fileID: 1257624034501513173}
   m_Layer: 6
   m_Name: MageTower
   m_TagString: Untagged
@@ -82,11 +28,10 @@ Transform:
   m_GameObject: {fileID: 2329901631346096502}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -60.23961, y: -0.45000076, z: 0.32244968}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8725474074371781142}
   - {fileID: 8390839090550099086}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -102,12 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e98be99c2bc63406ab0f501ef7be9551, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 10
   _colliderRadius: 20
-  _shootSpeed: 1
-  _projectileController: {fileID: 5284925294531154582, guid: 2120e7f24b35c43febf5a1c26dc6fe36, type: 3}
-  _model: {fileID: 2329901631346096502}
-  _crystal: {fileID: 8234128909723783774}
 --- !u!33 &6500835763903122498
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -158,27 +98,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &1257624034501513173
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2329901631346096502}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 128
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Size: {x: 10, y: 4.842702, z: 10}
-  m_Center: {x: 0.00000023841858, y: 2.735792, z: -0.00000023841858}
 --- !u!1 &8234128909723783774
 GameObject:
   m_ObjectHideFlags: 0
@@ -206,7 +125,7 @@ Transform:
   m_GameObject: {fileID: 8234128909723783774}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 7.866646, z: 0.000011444092}
+  m_LocalPosition: {x: -0, y: 7.866646, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

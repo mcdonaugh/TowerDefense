@@ -14,7 +14,7 @@ public class EnemyController : MonoBehaviour
     private int _laneToGoto;
     private List<PathAnchor> _pathAnchors = new List<PathAnchor>();
     private PathAnchor _nextPosition;
-    private BaseTower _currentOpponent;
+    private HealthController _currentOpponent;
     private int _positionIndex;
     private bool _isAttacking;
     private Animator _animator;
@@ -70,9 +70,9 @@ public class EnemyController : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<BaseTower>() == true)
+        if (other.GetComponent<HealthController>() == true)
         {
-            _currentOpponent = other.GetComponent<BaseTower>();
+            _currentOpponent = other.GetComponent<HealthController>();
             _isAttacking = true;
             StartCoroutine(Attack());
         }

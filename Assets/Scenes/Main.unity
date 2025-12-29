@@ -20533,7 +20533,6 @@ MonoBehaviour:
   - {fileID: 9059792137712496090, guid: 0934dce48d1724f0a8b7b3a58b17e5c9, type: 3}
   _towerPool: []
   _previewMaterial: {fileID: 2100000, guid: bd5068e6f685c4b8f91f9f6d0e5cc113, type: 2}
-  _currentTower: {fileID: 0}
 --- !u!4 &2105054712
 Transform:
   m_ObjectHideFlags: 0

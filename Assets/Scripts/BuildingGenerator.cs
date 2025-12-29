@@ -16,7 +16,7 @@ public class BuildingGenerator : MonoBehaviour
     private RaycastHit _hit;
     private bool _isInPreviewMode;
     private int _currentIndex;
-    [SerializeField] private BaseTower _currentTower;
+    private BaseTower _currentTower;
 
     private void Awake()
     {
@@ -42,7 +42,7 @@ public class BuildingGenerator : MonoBehaviour
             {
                 _currentTower.transform.position = _hit.point;
 
-                if(Input.GetMouseButton(0))
+                if(Input.GetMouseButtonDown(0))
                 {
                     _currentTower.transform.position = _hit.point;
                     _currentTower.GetComponent<MeshRenderer>().material = _originalMaterial;
@@ -73,19 +73,25 @@ public class BuildingGenerator : MonoBehaviour
             {
                AddTowerToPool();
             }
-
-            _originalMaterial = _currentTower.GetComponent<MeshRenderer>().sharedMaterial;
-            _childMeshRenderers = _currentTower.GetComponentsInChildren<MeshRenderer>().ToList();
-
-            foreach (var meshRenderer in _childMeshRenderers)
+            
+            _originalMaterial = _currentTower?.GetComponent<MeshRenderer>().material;
+            _childMeshRenderers = _currentTower?.GetComponentsInChildren<MeshRenderer>().ToList();
+            Debug.Log($"{_currentIndex}, {index}");
+            
+            if (_childMeshRenderers.Count > 0)
             {
-                meshRenderer.GetComponent<MeshRenderer>().material = _previewMaterial;
+                foreach (var meshRenderer in _childMeshRenderers)
+                {
+                    if(meshRenderer != null)
+                    {
+                    meshRenderer.GetComponent<MeshRenderer>().material = _previewMaterial;
+                    }
+                }    
             }
 
             _currentTower.GetComponent<MeshRenderer>().material = _previewMaterial;
             _isInPreviewMode = true;
         }
-
         else
         {
             _currentTower.gameObject.SetActive(false);
