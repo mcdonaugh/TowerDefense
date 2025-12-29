@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _colliderRadius: 20
-  _archer: {fileID: 8270228636197930750, guid: 81f87de9172a94adba03f89d49423e32, type: 3}
+  _archer: {fileID: 4910791946097575487, guid: 4af1ac081a6e143b4b65c895e4324bb5, type: 3}
 --- !u!33 &6856593710231366315
 MeshFilter:
   m_ObjectHideFlags: 0
