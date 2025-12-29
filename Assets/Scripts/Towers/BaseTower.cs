@@ -1,13 +1,16 @@
-using System.Collections;
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 
 public abstract class BaseTower : MonoBehaviour
 {
     [SerializeField] protected float _colliderRadius;
+    [SerializeField] protected ProjectileController _projectile;
+    [SerializeField] protected float _actionTime;
+    protected Transform _projectileOrigin;
     protected SphereCollider _detectionCollider;
     protected List<EnemyController> _targetQueue = new List<EnemyController>();
-
+    protected int _maxProjectiles = 3;
 
     public float ColliderRadius
     {

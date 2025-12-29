@@ -4,7 +4,6 @@ using UnityEngine;
 public class MageTowerController : BaseTower
 {
     [SerializeField] private float _shootSpeed = 1f;
-    [SerializeField] private ProjectileController _projectileController;
     [SerializeField] private GameObject _crystal;
     private bool _hasShot;
 
@@ -34,7 +33,7 @@ public class MageTowerController : BaseTower
 
     private IEnumerator GenerateProjectile(EnemyController target)
     {
-        ProjectileController projectile = Instantiate(_projectileController);
+        ProjectileController projectile = Instantiate(_projectile);
         projectile.transform.position = _crystal.transform.position;
         projectile.Move(target);
         yield return new WaitForSeconds(_shootSpeed);

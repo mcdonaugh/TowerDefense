@@ -131,6 +131,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _colliderRadius: 40
+  _projectile: {fileID: 5284925294531154582, guid: 2120e7f24b35c43febf5a1c26dc6fe36, type: 3}
+  _actionTime: 1
 --- !u!33 &650170289905055400
 MeshFilter:
   m_ObjectHideFlags: 0
