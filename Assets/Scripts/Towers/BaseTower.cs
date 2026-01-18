@@ -33,12 +33,20 @@ public abstract class BaseTower : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         EnemyController enemy = other.GetComponent<EnemyController>();
-        _targetQueue.Add(enemy);
+        
+        if(enemy != null)
+        {
+            _targetQueue.Add(enemy);
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
         EnemyController enemy = other.GetComponent<EnemyController>();
-        _targetQueue.Remove(enemy);
+
+        if(enemy != null)
+        {
+            _targetQueue.Remove(enemy);
+        }
     }
 }

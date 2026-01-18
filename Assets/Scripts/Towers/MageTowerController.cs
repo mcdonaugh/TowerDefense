@@ -35,7 +35,7 @@ public class MageTowerController : BaseTower
     {
         ProjectileController projectile = Instantiate(_projectile);
         projectile.transform.position = _crystal.transform.position;
-        projectile.Move(target);
+        projectile.SetTarget(target);
         yield return new WaitForSeconds(_shootSpeed);
         _hasShot = false;
     }

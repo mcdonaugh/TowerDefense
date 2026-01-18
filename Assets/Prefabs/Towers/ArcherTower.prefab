@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _colliderRadius: 20
-  _projectile: {fileID: 3020441304455241452, guid: 7ca2867fbe42741cd9366df4c29190ff, type: 3}
+  _projectile: {fileID: 28472108741873187, guid: 7ca2867fbe42741cd9366df4c29190ff, type: 3}
   _actionTime: 1
   _archer: {fileID: 4910791946097575487, guid: 4af1ac081a6e143b4b65c895e4324bb5, type: 3}
 --- !u!33 &6856593710231366315

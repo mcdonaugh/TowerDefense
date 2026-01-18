@@ -104,10 +104,11 @@ public class EnemyController : MonoBehaviour
     private void Move()
     {
         Vector3 direction = _nextPosition.transform.position - transform.position;
+        Vector3 newDirection = new Vector3(direction.x,0,direction.z);
 
         if (!_isAttacking)
         {
-            transform.position += direction.normalized * _moveSpeed * Time.deltaTime;
+            transform.position += newDirection.normalized * _moveSpeed * Time.deltaTime;
             _animator.Play("Walk");
         }
 
