@@ -5638,8 +5638,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26831828c12ef4fd5b01295805143ee3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _environmentRenderer: {fileID: 0}
-  _moveSpeed: 5
+  _environmentCollider: {fileID: 1106117539}
+  _moveSpeed: 100
   _zoomSpeed: 5
   _boundsOffset: 4
   _maxZoom: 8
