@@ -4,19 +4,26 @@ using UnityEngine;
 public class HealthController : MonoBehaviour
 {
     public event Action OnDeath;
-    [SerializeField] private int _maxHealth;
-    private int _currentHealth;
+    public event Action UpdateHealth;
+    [SerializeField] public int MaxHealth;
+    public int CurrentHealth {get; private set;}
 
     private void Awake()
     {
-        _currentHealth = _maxHealth;
+        CurrentHealth = MaxHealth;
+    }
+    
+    private void OnEnable()
+    {
+        UpdateHealth?.Invoke();    
     }
 
     public void TakeDamage(int damage)
     {
-        _currentHealth -= damage;
+        CurrentHealth -= damage;
+        UpdateHealth?.Invoke();
 
-        if (_currentHealth <= 0)
+        if (CurrentHealth <= 0)
         {
             Die();
         }
@@ -25,7 +32,7 @@ public class HealthController : MonoBehaviour
     private void Die()
     {
         gameObject.SetActive(false);
-        _currentHealth = _maxHealth;
+        CurrentHealth = MaxHealth;
         OnDeath?.Invoke();
     }
 }

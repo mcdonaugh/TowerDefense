@@ -28,7 +28,6 @@ public class UIController : MonoBehaviour
 
     private void OnEnemyDeathEventHandler()
     {
-        Debug.Log("Called");
         UpdateGoldText();
         UpdateScore();
     }
