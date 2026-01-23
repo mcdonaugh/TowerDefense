@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 public class ArcherTowerController : BaseTower
 {
@@ -57,20 +58,36 @@ public class ArcherTowerController : BaseTower
 
     private IEnumerator Shoot()
     {
-        _targetQueue.RemoveAll(EnemyController => EnemyController == null || !EnemyController.gameObject.activeInHierarchy);
         
-        foreach (var projectile in _projectilePool)
-        {   
-            if(projectile.gameObject.activeInHierarchy != true)
-            {
-                projectile.gameObject.SetActive(true);
-                projectile.transform.position = _projectileOrigin.transform.position;
-                projectile.transform.rotation = _projectileOrigin.transform.rotation;
-                projectile.SetTarget(_targetQueue[0]);
-                break;
+        if (_projectilePool.Length > 0)
+        {    
+            foreach (var projectile in _projectilePool)
+            {   
+                if(_targetQueue[0]!= null && projectile.gameObject.activeInHierarchy != true)
+                {
+                    projectile.gameObject.SetActive(true);
+                    projectile.transform.position = _projectileOrigin.transform.position;
+                    projectile.transform.rotation = _projectileOrigin.transform.rotation;
+                    projectile.SetTarget(_targetQueue[0]);
+                    break;
+                }
             }
         }
+
         yield return new WaitForSeconds(_actionTime);
         _hasShot = false;
+
+        CleanupQueue();   
     }
+
+    private void CleanupQueue()
+    {
+        for (int i = _targetQueue.Count - 1; i >= 0; i--)
+        {
+            if (_targetQueue[i] == null || !_targetQueue[i].gameObject.activeInHierarchy)
+                _targetQueue.RemoveAt(i);
+        }
+    }
+
+    
 }

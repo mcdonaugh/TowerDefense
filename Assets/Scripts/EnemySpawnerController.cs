@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 
@@ -8,17 +7,13 @@ public class EnemySpawnerController : MonoBehaviour
     [SerializeField] private LineManager _lineManager;
     [SerializeField] private float _spawnTime;
     [SerializeField] private int _maxSpawn = 3;
-    private EnemyController[] _enemies;
+    public EnemyController[] Enemies;
     private int _maxEnemies = 20;
     private bool _hasSpawned;
 
     private void Awake()
     {
-        _enemies = new EnemyController[_maxEnemies];
-    }
-
-    private void Start()
-    {
+        Enemies = new EnemyController[_maxEnemies];
         GenerateEnemyPool(); 
     }
     
@@ -43,25 +38,26 @@ public class EnemySpawnerController : MonoBehaviour
 
     for(int i = 0; i < enemiesToSpawn; i++)
     {
-        for(int j = 0; j < _enemies.Length; j++)
+        for(int j = 0; j < Enemies.Length; j++)
         {
-            if(!_enemies[j].gameObject.activeInHierarchy)
+            if(!Enemies[j].gameObject.activeInHierarchy)
             {
-                EnemyController enemy = _enemies[j];
+                EnemyController enemy = Enemies[j];
                 enemy.transform.position = _lineManager.BotLane[0].transform.position;
                 enemy.gameObject.SetActive(true);
                 break;
             }
         }
-                yield return new WaitForSeconds(.2f);
+
+        yield return new WaitForSeconds(.2f);
     }   
 }
     private void GenerateEnemyPool()
     {
         for(int i = 0; i < _maxEnemies; i++)
         {
-            _enemies[i] = Instantiate(_enemy);
-            _enemies[i].LineManager = _lineManager;
+            Enemies[i] = Instantiate(_enemy);
+            Enemies[i].LineManager = _lineManager;
         }
     }
 

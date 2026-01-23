@@ -1,7 +1,9 @@
+using System;
 using UnityEngine;
 
 public class HealthController : MonoBehaviour
 {
+    public event Action OnDeath;
     [SerializeField] private int _maxHealth;
     private int _currentHealth;
 
@@ -24,5 +26,6 @@ public class HealthController : MonoBehaviour
     {
         gameObject.SetActive(false);
         _currentHealth = _maxHealth;
+        OnDeath?.Invoke();
     }
 }

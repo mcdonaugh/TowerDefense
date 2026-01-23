@@ -16,12 +16,10 @@ public class ProjectileController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.name);
-
 
         if(other.GetComponent<EnemyController>() != null)
         {
-            EnemyController target = other.GetComponent<EnemyController>();
+            HealthController target = other.GetComponent<HealthController>();
             target.TakeDamage(_damage);
         }
         
