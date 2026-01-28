@@ -29,4 +29,9 @@ public class GameStateController : MonoBehaviour
 
         _mainMenuUI.gameObject.SetActive(true);
     }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
 }
