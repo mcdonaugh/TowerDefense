@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class HealthBarController : MonoBehaviour
+public class HealthBarView : MonoBehaviour
 {
     [SerializeField] HealthController _healthController;
     [SerializeField] GameObject _healthFill;
