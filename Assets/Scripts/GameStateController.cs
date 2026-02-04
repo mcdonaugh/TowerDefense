@@ -7,12 +7,14 @@ public class GameStateController : MonoBehaviour
     [SerializeField] private Canvas _gameUI;
     [SerializeField] private Canvas _pauseUI;
     [SerializeField] private EnemySpawnerController _enemySpawnerController;
+    [SerializeField] private CameraController _cameraController;
     private bool _gameIsActive;
     private bool _gameIsPaused;
 
     private void Awake()
     {
         ResetGame();
+        _cameraController.enabled = false;
     }
 
     private void Update()
@@ -39,6 +41,7 @@ public class GameStateController : MonoBehaviour
 
     public void StartGame()
     {
+        _cameraController.enabled = true;
         _gameIsActive = true;
         _gameUI.gameObject.SetActive(true);
         _pauseUI.gameObject.SetActive(false);
