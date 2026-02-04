@@ -45,6 +45,7 @@ public class GameStateController : MonoBehaviour
         _enemySpawnerController.gameObject.SetActive(true);
 
         _mainMenuUI.gameObject.SetActive(false);
+        Time.timeScale = 1;
     }
 
     public void PauseGame()

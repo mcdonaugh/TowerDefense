@@ -1662,7 +1662,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1026635989}
         m_TargetAssemblyTypeName: GameStateController, Assembly-CSharp
-        m_MethodName: ResetGame
+        m_MethodName: ResumeGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
